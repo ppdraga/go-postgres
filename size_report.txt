@@ -1,0 +1,78 @@
+список таблиц:
+
+cdn=# \dt
+           List of relations
+ Schema |    Name    | Type  |  Owner   
+--------+------------+-------+----------
+ public | area       | table | userdb
+ public | file       | table | userdb
+ public | server     | table | userdb
+ public | serverfile | table | userdb
+ public | user       | table | userdb
+ public | userfile   | table | userdb
+(6 rows)
+
+
+количество строк в каждой таблице в соответствии со статистикой, которую собирает
+Postgres:
+
+cdn=# select reltuples::bigint as estimate from pg_class where oid = 'area'::regclass;
+ estimate 
+----------
+        0
+(1 row)
+
+cdn=# select reltuples::bigint as estimate from pg_class where oid = 'file'::regclass;
+ estimate 
+----------
+        0
+(1 row)
+
+cdn=# select reltuples::bigint as estimate from pg_class where oid = 'server'::regclass;
+ estimate 
+----------
+        0
+(1 row)
+
+cdn=# select reltuples::bigint as estimate from pg_class where oid = 'serverfile'::regclass;
+ estimate 
+----------
+        0
+(1 row)
+
+cdn=# select reltuples::bigint as estimate from pg_class where oid = 'userfile'::regclass;
+ estimate 
+----------
+        0
+(1 row)
+
+cdn=# select reltuples::bigint as estimate from pg_class where oid = 'user'::regclass;
+ estimate 
+----------
+        0
+(1 row)
+
+
+объём диска, занимаемого каждой таблицей:
+
+cdn=# \d+
+                                   List of relations
+ Schema |     Name      |   Type   |  Owner   | Persistence |    Size    | Description 
+--------+---------------+----------+----------+-------------+------------+-------------
+ public | area          | table    | userdb   | permanent   | 16 kB      | 
+ public | area_id_seq   | sequence | userdb   | permanent   | 8192 bytes | 
+ public | file          | table    | userdb   | permanent   | 16 kB      | 
+ public | file_id_seq   | sequence | userdb   | permanent   | 8192 bytes | 
+ public | server        | table    | userdb   | permanent   | 16 kB      | 
+ public | server_id_seq | sequence | userdb   | permanent   | 8192 bytes | 
+ public | serverfile    | table    | userdb   | permanent   | 8192 bytes | 
+ public | user          | table    | userdb   | permanent   | 8192 bytes | 
+ public | user_id_seq   | sequence | userdb   | permanent   | 8192 bytes | 
+ public | userfile      | table    | userdb   | permanent   | 8192 bytes | 
+(10 rows)
+
+
+общий объём диска, занимаемого экземпляром Postgres:
+
+$ sudo du -sh volumes/sql_data
+48M     volumes/sql_data
