@@ -1,0 +1,18 @@
+--
+
+CREATE TABLE IF NOT EXISTS mytable (
+    id serial PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NULL
+);
+
+INSERT INTO mytable (name, description) VALUES ('name1', 'desc1'), ('name2', 'desc2'), ('name3', 'desc4');
+
+-- mydb=> \d
+--              List of relations
+-- Schema |      Name      |   Type   | Owner  
+-- --------+----------------+----------+--------
+-- public | mytable        | table    | myuser
+-- public | mytable_id_seq | sequence | myuser
+-- (2 rows)
