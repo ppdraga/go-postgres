@@ -1,0 +1,23 @@
+
+CPU: Intel(R) Core(TM) i3-8130U CPU @ 2.20GHz (2 cores, 4 threads)
+RAM: 32 GB
+HDD: 500 GB (NVMe)
+
+
+MaxConns = MinConns = 15
+duration: 10.010911662s
+threads: 30
+queries: 186947
+QPS: 18694
+
+MaxConns = MinConns = 5
+duration: 10.00935032s
+threads: 30
+queries: 176897
+QPS: 17689
+
+MaxConns = MinConns = 1
+duration: 10.004796763s
+threads: 30
+queries: 86710
+QPS: 8671

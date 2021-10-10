@@ -26,4 +26,5 @@ INSERT INTO serverfile (server_id, file_id) VALUES
     (1, 1), 
     (1, 2),
     (2, 1),
-    (2, 2);
+    (2, 2),
+    (3, 1);
