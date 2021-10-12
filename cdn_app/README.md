@@ -27,3 +27,7 @@ http://localhost:8084/api/files/area/msk.ru
 
 http://localhost:8084/api/files/area/spb.ru
 ["file1.mp4"]
+
+
+Тест написан в cdn_app/tests/api_test.go пройдет только если создана база cdn_test и dsn такой
+dsn := "host=localhost user=postgres password=postgres dbname=cdn_test port=5432 TimeZone=Europe/Moscow"
