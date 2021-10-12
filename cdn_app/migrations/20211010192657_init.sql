@@ -1,0 +1,67 @@
+-- +goose Up
+-- +goose StatementBegin
+CREATE TABLE IF NOT EXISTS area (
+    id serial PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    removed TIMESTAMP NULL,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NULL
+    );
+
+CREATE TABLE IF NOT EXISTS file (
+    id serial PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    removed TIMESTAMP NULL,
+    name VARCHAR(255) NOT NULL,
+    sha VARCHAR(255) NOT NULL,
+    size BIGINT NOT NULL DEFAULT 0,
+    description VARCHAR(255) NULL
+    );
+
+CREATE TABLE IF NOT EXISTS server (
+    id serial PRIMARY KEY,
+    area_id BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    removed TIMESTAMP NULL,
+    name VARCHAR(255) NOT NULL,
+    hostname VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NULL,
+    FOREIGN KEY (area_id) REFERENCES area(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS "user" (
+    id serial PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    removed TIMESTAMP NULL,
+    name VARCHAR(255) NOT NULL,
+    balance BIGINT NOT NULL DEFAULT 0 CHECK (balance >= 0)
+    );
+
+CREATE TABLE IF NOT EXISTS userfile (
+    user_id BIGINT NOT NULL,
+    file_id BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    removed TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (file_id) REFERENCES file(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS serverfile (
+    server_id BIGINT NOT NULL,
+    file_id BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    removed TIMESTAMP NULL,
+    FOREIGN KEY (server_id) REFERENCES server(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (file_id) REFERENCES file(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+-- +goose StatementEnd
+
+-- +goose Down
+-- +goose StatementBegin
+DROP TABLE IF EXISTS serverfile;
+DROP TABLE IF EXISTS userfile;
+DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS server;
+DROP TABLE IF EXISTS file;
+DROP TABLE IF EXISTS area;
+-- +goose StatementEnd
