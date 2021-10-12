@@ -10,10 +10,7 @@ import (
 	"strings"
 )
 
-
-
-
-func APIHandler(filesCtrl *fservice.Controller) http.HandlerFunc{
+func APIHandler(filesCtrl *fservice.Controller) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		name, ok := vars["name"]
@@ -22,8 +19,7 @@ func APIHandler(filesCtrl *fservice.Controller) http.HandlerFunc{
 			return
 		}
 
-		uri := strings.Split(r.RequestURI, "/")
-		fmt.Println(uri)
+		uri := strings.Split(r.URL.Path, "/")
 		switch uri[3] {
 		case "user":
 			item, err := filesCtrl.GetUserFiles(name)
@@ -54,7 +50,5 @@ func APIHandler(filesCtrl *fservice.Controller) http.HandlerFunc{
 			return
 		}
 	}
-
-
 
 }
